@@ -7,7 +7,7 @@ const Home = () => {
   const token = localStorage.getItem("token");
 
   const fetchPosts = async () => {
-    const res = await axios.get("http://localhost:5000/api/posts");
+    const res = await axios.get("https://linkedin-clone-owvf.onrender.com/api/posts");
     setPosts(res.data);
   };
 
@@ -15,7 +15,7 @@ const Home = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:5000/api/posts",
+        "https://linkedin-clone-owvf.onrender.com/api/posts",
         { content },
         { headers: { Authorization: `Bearer ${token}` } }
       );

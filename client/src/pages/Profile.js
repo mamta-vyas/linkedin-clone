@@ -8,8 +8,8 @@ const Profile = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/auth/profile/${id}`).then((res) => setUser(res.data));
-    axios.get(`http://localhost:5000/api/posts/user/${id}`).then((res) => setPosts(res.data));
+    axios.get(`https://linkedin-clone-owvf.onrender.com/api/auth/profile/${id}`).then((res) => setUser(res.data));
+    axios.get(`https://linkedin-clone-owvf.onrender.com/api/posts/user/${id}`).then((res) => setPosts(res.data));
   }, [id]);
 
   return (
