@@ -13,12 +13,12 @@ const Login = () => {
       const res = await axios.post(
         "https://linkedin-clone-owvf.onrender.com/api/auth/login",
         { email, password },
-        { withCredentials: true } // ✅ needed for cookies/session on Render cross-origin
+        { withCredentials: true }
       );
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      navigate("/home"); // ✅ go to /home after login
+      navigate("/home");
     } catch (error) {
       console.error("Login error:", error);
       alert("Login failed. Please check your credentials.");
@@ -28,42 +28,42 @@ const Login = () => {
   useEffect(() => {
     const isAuth = localStorage.getItem("token");
     if (isAuth) {
-      navigate("/home"); // ✅ redirect if already logged in
+      navigate("/home");
     }
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-4">
-      <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 px-4 sm:px-6 md:px-10 lg:px-20 py-10">
+      <div className="bg-white shadow-2xl rounded-2xl p-6 sm:p-8 md:p-10 w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-blue-700 mb-6">
           Login to LinkedIn Mini
         </h2>
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-gray-700 mb-1">Email</label>
+            <label className="block text-gray-700 mb-1 text-sm sm:text-base">Email</label>
             <input
               type="email"
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"
             />
           </div>
           <div>
-            <label className="block text-gray-700 mb-1">Password</label>
+            <label className="block text-gray-700 mb-1 text-sm sm:text-base">Password</label>
             <input
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200 text-sm sm:text-base"
           >
             Login
           </button>

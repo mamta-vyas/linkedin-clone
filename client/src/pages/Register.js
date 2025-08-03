@@ -12,7 +12,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://linkedin-clone-owvf.onrender.com/api/auth/register", form,{ withCredentials: true });
+      await axios.post("https://linkedin-clone-owvf.onrender.com/api/auth/register", form, { withCredentials: true });
       alert("Registered! Please login.");
       navigate("/login");
     } catch (err) {
@@ -21,24 +21,57 @@ const Register = () => {
   };
 
   useEffect(() => {
-  const isAuth = localStorage.getItem("token");
-  if (isAuth) navigate("/home");
-}, [navigate]);
-
+    const isAuth = localStorage.getItem("token");
+    if (isAuth) navigate("/home");
+  }, [navigate]);
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <input className="w-full border px-3 py-2 rounded" name="name" placeholder="Name" onChange={handleChange} required />
-        <input className="w-full border px-3 py-2 rounded" name="email" placeholder="Email" onChange={handleChange} required />
-        <input className="w-full border px-3 py-2 rounded" name="password" type="password" placeholder="Password" onChange={handleChange} required />
-        <input className="w-full border px-3 py-2 rounded" name="bio" placeholder="Bio (optional)" onChange={handleChange} />
-        <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Register</button>
-      </form>
-      <p className="text-sm mt-4 text-center">
-        Already registered? <Link to="/login" className="text-blue-600 underline">Go to Login</Link>
-      </p>
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gray-100">
+      <div className="max-w-md w-full bg-white p-6 sm:p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">Register</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+            required
+          />
+          <input
+            className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+          <input
+            className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            name="bio"
+            placeholder="Bio (optional)"
+            onChange={handleChange}
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-200"
+          >
+            Register
+          </button>
+        </form>
+        <p className="text-sm text-center text-gray-600 mt-4">
+          Already registered?{" "}
+          <Link to="/login" className="text-blue-600 underline hover:text-blue-800">
+            Go to Login
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
