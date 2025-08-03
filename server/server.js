@@ -10,13 +10,21 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000", 
-  "https://linkediclone-webapp.netlify.app/"
+  "https://linkediclone-webapp.netlify.app" // removed trailing slash
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
 }));
+
+app.options("*", cors());
 
 app.use(express.json());
 
