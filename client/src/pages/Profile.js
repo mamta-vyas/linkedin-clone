@@ -8,8 +8,17 @@ const Profile = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://linkedin-clone-owvf.onrender.com/api/auth/profile/${id}`).then((res) => setUser(res.data));
-    axios.get(`https://linkedin-clone-owvf.onrender.com/api/posts/user/${id}`).then((res) => setPosts(res.data));
+    axios
+      .get(`https://linkedin-clone-owvf.onrender.com/api/auth/profile/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => setUser(res.data));
+
+    axios
+      .get(`https://linkedin-clone-owvf.onrender.com/api/posts/user/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => setPosts(res.data));
   }, [id]);
 
   return (
@@ -24,7 +33,9 @@ const Profile = () => {
       {posts.map((p) => (
         <div key={p._id} className="bg-white p-4 shadow rounded mb-4">
           <p>{p.content}</p>
-          <div className="text-sm text-gray-500 mt-1">{new Date(p.createdAt).toLocaleString()}</div>
+          <div className="text-sm text-gray-500 mt-1">
+            {new Date(p.createdAt).toLocaleString()}
+          </div>
         </div>
       ))}
     </div>

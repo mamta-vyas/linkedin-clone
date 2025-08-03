@@ -12,7 +12,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://linkedin-clone-owvf.onrender.com/api/auth/register", form);
+      await axios.post("https://linkedin-clone-owvf.onrender.com/api/auth/register", form,{ withCredentials: true });
       alert("Registered! Please login.");
       navigate("/login");
     } catch (err) {

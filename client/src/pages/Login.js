@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,25 +10,27 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://linkedin-clone-owvf.onrender.com/api/auth/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "https://linkedin-clone-owvf.onrender.com/api/auth/login",
+        { email, password },
+        { withCredentials: true } // ✅ needed for cookies/session on Render cross-origin
+      );
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-
-      navigate("/");
+      navigate("/home"); // ✅ go to /home after login
     } catch (error) {
+      console.error("Login error:", error);
       alert("Login failed. Please check your credentials.");
     }
   };
-  
-  useEffect(() => {
-  const isAuth = localStorage.getItem("token");
-  if (isAuth) navigate("/home");
-}, [navigate]);
 
+  useEffect(() => {
+    const isAuth = localStorage.getItem("token");
+    if (isAuth) {
+      navigate("/home"); // ✅ redirect if already logged in
+    }
+  }, [navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-4">
@@ -43,7 +44,6 @@ const Login = () => {
             <input
               type="email"
               placeholder="you@example.com"
-              autoComplete="current-password"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -55,7 +55,6 @@ const Login = () => {
             <input
               type="password"
               placeholder="••••••••"
-              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

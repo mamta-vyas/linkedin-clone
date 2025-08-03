@@ -7,8 +7,14 @@ const Home = () => {
   const token = localStorage.getItem("token");
 
   const fetchPosts = async () => {
-    const res = await axios.get("https://linkedin-clone-owvf.onrender.com/api/posts");
-    setPosts(res.data);
+    try {
+      const res = await axios.get("https://linkedin-clone-owvf.onrender.com/api/posts", {
+        withCredentials: true, // 👈 include cookies
+      });
+      setPosts(res.data);
+    } catch (err) {
+      console.error("Error fetching posts", err);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -17,7 +23,10 @@ const Home = () => {
       await axios.post(
         "https://linkedin-clone-owvf.onrender.com/api/posts",
         { content },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true, // 👈 include cookies
+        }
       );
       setContent("");
       fetchPosts();
