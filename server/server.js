@@ -7,7 +7,17 @@ const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:3000", 
+  "https://linkediclone-webapp.netlify.app/"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
+
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
